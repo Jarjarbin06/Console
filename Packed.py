@@ -7,11 +7,47 @@
 ### by JARJARBIN's STUDIO ###
 #############################
 
+
 from Color import Color
 
 class Packed:
+    """
+        Packed class.
+        Base animation pack ready for use.
 
-    def __init__(self, *, on="#", off="-", border="|"):
+        Attributes:
+            ERROR (tuple): error tuple of color.
+            WARNING (tuple): warning tuple of color.
+            VALID (tuple): validation tuple of color.
+            INFO (tuple): information tuple of color.
+            SLIDE_R (tuple): slide right animation.
+            SLIDE_L (tuple): slide left animation.
+            SLIDER_R (tuple): slider right animation.
+            SLIDER_L (tuple): slider left animation.
+            FILL_R (tuple): fill right animation.
+            FILL_L (tuple): fill left animation.
+            EMPTY_R (tuple): empty right animation.
+            EMPTY_L (tuple): empty left animation.
+            FULL (tuple): full animation.
+            EMPTY (tuple): empty animation.
+    """
+
+    def __init__(
+            self,
+
+            *,
+            on : str = "#",
+            off : str = "-",
+            border : str = "|"
+        ) -> None:
+        """
+            Initialise the Packed class
+
+            Parameters:
+                on (str)(optional): character representing an activated case
+                off (str)(optional): character representing an unactivated case
+                border (str)(optional): character representing a border
+        """
 
         self.ERROR = (Color.HIGHLIGHT_DARK_RED, Color.DARK_RED)
         self.WARNING = (Color.HIGHLIGHT_DARK_YELLOW, Color.DARK_YELLOW)
@@ -144,8 +180,8 @@ class Packed:
             f"{border}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
             f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}"]
 
-        self.EMPTY = [
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}"]
-
         self.FULL = [
             f"{border}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{border}"]
+
+        self.EMPTY = [
+            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}"]

@@ -13,30 +13,116 @@ from os import system
 from sys import stdout, platform
 from time import sleep as slp
 
-base_pack = Packed()
+BASE_PACK = Packed()
 
 
 class Animation:
     """
-    Animation class contains variable used by animate() and open_animation()
+        Animation class.
+
+        Attributes:
+            ANIMATION (list[str]): list of all steps of the animation.
+            ANIMATION_STEP (int): current step of the animation.
+            ANIMATION_LENGTH (int): last step of the animation.
     """
 
-    ANIMATION: list[str] = []
-    ANIMATION_STEP: int = 0
-    ANIMATION_MAX_STEP: int = 0
+
+    def __init__(
+            self,
+            animation: list[str]
+        ) -> None:
+        """
+            Open an animation.
+
+            Args:
+                animation (list[str]): list of all steps of the animation.
+        """
+
+        self.ANIMATION : list[str] = animation
+        self.ANIMATION_STEP : int = 0
+        self.ANIMATION_LENGTH : int = len(animation) - 1
 
 
-def command(
-        command_line: str
-) -> None:
+    def animate(
+            self,
+            color_val: tuple[str, str] = BASE_PACK.VALID
+        ) -> str:
+        """
+            Go to the next step of the animation and return it.
+
+            Args:
+                color_val (tuple[str, str])(optional): color value.
+        """
+
+        self.ANIMATION_STEP += 1
+
+        if self.ANIMATION_STEP > self.ANIMATION_LENGTH: self.ANIMATION_STEP = 0
+
+        return color(self.ANIMATION[self.ANIMATION_STEP - 1], color_code = color_val)
+
+
+    def reset(
+            self
+        ) -> None:
+        """
+            Reset the animation back to first step.
+        """
+
+        self.ANIMATION_STEP = 0
+
+
+class Action:
     """
-    execute a command in the shell
-
-    Parameters
-        command_line {str} -- command to execute
+        Action class.
     """
 
-    system(command_line)
+    @staticmethod
+    def command(
+            command_line: str
+        ) -> None:
+        """
+            Execute a command in the shell.
+
+            Args:
+                command_line (str): command to execute.
+        """
+
+        system(command_line)
+
+
+    @staticmethod
+    def clear(
+        ) -> None:
+        """
+            clear the console
+        """
+
+        if platform == "linux" or platform == "linux2":
+            system("clear")
+
+        elif platform == "win32":
+            system("cls")
+
+
+    @staticmethod
+    def delete_last_line(
+        ) -> None:
+        """
+            delete the last line of the console
+        """
+
+        stdout.write('\x1b[1A')
+        stdout.write('\x1b[2K')
+
+
+    @staticmethod
+    def line_up(
+        ):
+        """
+            bring next print to the previous line
+        """
+
+        stdout.write('\033[1A')
 
 
 def show(
@@ -46,21 +132,20 @@ def show(
         end: str = "\n",
         delete: bool = False,
         sleep: int | float = 0
-) -> None:
+    ) -> None:
     """
-    show a text on the console
+        Show a text on the console.
 
-    Parameters
-        text {str} -- text to show
+        Args:
+            text (str): text to show.
 
-        (optional)
-        start {str} -- start character
-        end {str} -- end character
-        delete {bool} -- delete last line
-        sleep {int} -- sleep time
+            start (str)(optional): starting character
+            end (str)(optional): ending character
+            delete (bool)(optional): delete last line
+            sleep (int)(optional): sleep time
     """
 
-    if delete: delete_last_line()
+    if delete: Action.delete_last_line()
 
     print(f"{start}{text}", end=end)
     slp(sleep)
@@ -68,19 +153,22 @@ def show(
 
 def color(
         text: str,
-        color_code: tuple[str, str] = base_pack.INFO,
+
+        *,
+        color_code: tuple[str, str] = BASE_PACK.INFO,
         title: str = ""
-) -> str:
+    ) -> str:
     """
-    put color on a text and return it
+        Put color on a text and return it.
 
-    Parameters
-        text {str} -- text to show
-        color_code {tuple[str, str]} -- color code
-        title {str} -- title
+        Args:
+            text (str): text to show.
 
-    Returns
-        str -- color
+            color_code (tuple[str, str])(optional): color code.
+            title (str)(optional): title of the text.
+
+        Returns:
+            str: colored text.
     """
 
     if title == "":
@@ -89,78 +177,73 @@ def color(
         return f"{color_code[0]}{title}{Color.BASE}{color_code[1]} : {text}{Color.BASE}"
 
 
-def open_animation(
-        animation: list[str]
-):
-    """
-    open an animation on the console
-
-    Parameters
-        animation {list[str]} -- animation list
-    """
-    
-    Animation.ANIMATION = animation
-    Animation.ANIMATION_STEP = 0
-    Animation.ANIMATION_MAX_STEP = len(animation) - 1
-
-
-def animate(
-        *,
-        color_val : tuple[str, str] =base_pack.VALID
-) -> str:
-    """pass to the next step of the animation and return it
-    Parameters
-        (optional)
-        color_val {tuple[str, str]} -- color value
-    """
-
-    Animation.ANIMATION_STEP += 1
-
-    if Animation.ANIMATION_STEP > Animation.ANIMATION_MAX_STEP: Animation.ANIMATION_STEP = 0
-
-    return color(Animation.ANIMATION[Animation.ANIMATION_STEP - 1], color_val)
-
-
-def clear(
-) -> None:
-    """
-    clear the console
-    """
-
-    if platform == "linux" or platform == "linux2": system("clear")
-
-    elif platform == "win32": system("cls")
-
-
-def delete_last_line(
-) -> None:
-    """
-    delete the last line of the console
-    """
-
-    stdout.write('\x1b[1A')
-    stdout.write('\x1b[2K')
-
 if __name__ == "__main__":
 
-    while True:
+    #########################################
+    ## initialize the different animations ##
+    #########################################
+    anim1 : Animation = Animation(BASE_PACK.FILL_R) #fill from left to right
+    anim2 : Animation = Animation(BASE_PACK.EMPTY_R) #empty from left to right
+    anim3 : Animation = Animation(BASE_PACK.FILL_L) #fill from right to left
+    anim4 : Animation = Animation(BASE_PACK.EMPTY_L) #empty from right to left
 
-        open_animation(base_pack.FILL_R)
-        for _ in range(Animation.ANIMATION_MAX_STEP): show(
-            animate() + " <=> " + color("This is a test", base_pack.VALID, "TEST"),
-            delete=True, sleep=0.05)
+    ########################
+    ## animation the loop ##
+    ########################
+    while True: # animation loop
 
-        open_animation(base_pack.EMPTY_R)
-        for _ in range(Animation.ANIMATION_MAX_STEP): show(
-            animate() + " <=> " + color("This is a test", base_pack.VALID, "TEST"),
-            delete=True, sleep=0.05)
+        #####################
+        ## first animation ##
+        #####################
+        for _ in range(anim1.ANIMATION_LENGTH):
+            show(
+                anim1.animate() + " <=> " + color(
+                    "This is a test",
+                    color_code=BASE_PACK.VALID,
+                    title="TEST"),
+                delete = True,
+                sleep = 0.05
+            )
+        anim1.reset() #reset the animation's step back to zero
 
-        open_animation(base_pack.FILL_L)
-        for _ in range(Animation.ANIMATION_MAX_STEP): show(
-            animate() + " <=> " + color("This is a test", base_pack.VALID, "TEST"),
-            delete=True, sleep=0.05)
+        ######################
+        ## second animation ##
+        ######################
+        for _ in range(anim2.ANIMATION_LENGTH):
+            show(
+                anim2.animate() + " <=> " + color(
+                    "This is a test",
+                    color_code=BASE_PACK.VALID,
+                    title="TEST"),
+                delete = True,
+                sleep = 0.05
+            )
+        anim2.reset() #reset the animation's step back to zero
 
-        open_animation(base_pack.EMPTY_L)
-        for _ in range(Animation.ANIMATION_MAX_STEP): show(
-            animate() + " <=> " + color("This is a test", base_pack.VALID, "TEST"),
-            delete=True, sleep=0.05)
+        #####################
+        ## third animation ##
+        #####################
+        for _ in range(anim3.ANIMATION_LENGTH):
+            show(
+                anim3.animate() + " <=> " + color(
+                    "This is a test",
+                    color_code=BASE_PACK.VALID,
+                    title="TEST"),
+                delete = True,
+                sleep = 0.05
+            )
+        anim3.reset() #reset the animation's step back to zero
+
+        ######################
+        ## fourth animation ##
+        ######################
+        for _ in range(anim4.ANIMATION_LENGTH):
+            show(
+                anim4.animate() + " <=> " + color(
+                    "This is a test",
+                    color_code=BASE_PACK.VALID,
+                    title="TEST"),
+                delete = True,
+                sleep = 0.05
+            )
+        anim4.reset() #reset the animation's step back to zero
