@@ -43,7 +43,7 @@ class Animation:
         self.ANIMATION_LENGTH : int = len(animation) - 1
 
 
-    def animate(
+    def __call__(
             self,
             color_val: tuple[str, str] = BASE_PACK.VALID
         ) -> str:
@@ -54,11 +54,38 @@ class Animation:
                 color_val (tuple[str, str])(optional): color value.
         """
 
+        if self.ANIMATION_STEP > self.ANIMATION_LENGTH:
+            self.ANIMATION_STEP -= 1
+
         self.ANIMATION_STEP += 1
 
-        if self.ANIMATION_STEP > self.ANIMATION_LENGTH: self.ANIMATION_STEP = 0
-
         return color(self.ANIMATION[self.ANIMATION_STEP - 1], color_code = color_val)
+
+    def __getitem__(
+            self,
+            item: int
+        ) -> str:
+        """
+            Return the animation at step 'item'.
+
+            Args:
+                item (int): step of the animation.
+        """
+
+        return self.ANIMATION[item]
+
+
+    def is_last(
+            self
+        ) -> bool:
+        """
+            Return True if the current step of the animation is the last, False otherwise.
+
+            Returns:
+                bool: True if the current step is the last, False otherwise.
+        """
+
+        return self.ANIMATION_STEP == self.ANIMATION_LENGTH
 
 
     def reset(
@@ -117,12 +144,13 @@ class Action:
 
     @staticmethod
     def line_up(
-        ):
+            repeat : int = 1
+        ) -> None :
         """
             bring next print to the previous line
         """
 
-        stdout.write('\033[1A')
+        stdout.write(f'\033[{repeat}A')
 
 
 def show(
@@ -179,71 +207,34 @@ def color(
 
 if __name__ == "__main__":
 
-    #########################################
-    ## initialize the different animations ##
-    #########################################
-    anim1 : Animation = Animation(BASE_PACK.FILL_R) #fill from left to right
-    anim2 : Animation = Animation(BASE_PACK.EMPTY_R) #empty from left to right
-    anim3 : Animation = Animation(BASE_PACK.FILL_L) #fill from right to left
-    anim4 : Animation = Animation(BASE_PACK.EMPTY_L) #empty from right to left
+    print("\033[93mtest started\033[0m\n")
+    try: # catch exceptions
 
-    ########################
-    ## animation the loop ##
-    ########################
-    while True: # animation loop
+        custom_pack: Packed = Packed(on="=", off=" ", arrow_right=">", borders=("[", "]")) # initialize a custom animation and color pack
+        anim1: Animation = Animation(custom_pack.FILL_R + custom_pack.FULL) # initialize a new animation (source: custom pack)
+        anim2: Animation = Animation(["[|]", "[/]", "[/]", "[-]", "[-]", "[-]", "[\\]", "[\\]"]) # initialize a custom animation (source: list of string)
 
-        #####################
-        ## first animation ##
-        #####################
-        for _ in range(anim1.ANIMATION_LENGTH):
-            show(
-                anim1.animate() + " <=> " + color(
-                    "This is a test",
-                    color_code=BASE_PACK.VALID,
-                    title="TEST"),
-                delete = True,
-                sleep = 0.05
-            )
-        anim1.reset() #reset the animation's step back to zero
+        while True: # loop forever
 
-        ######################
-        ## second animation ##
-        ######################
-        for _ in range(anim2.ANIMATION_LENGTH):
-            show(
-                anim2.animate() + " <=> " + color(
-                    "This is a test",
-                    color_code=BASE_PACK.VALID,
-                    title="TEST"),
-                delete = True,
-                sleep = 0.05
-            )
-        anim2.reset() #reset the animation's step back to zero
+            while not anim1.is_last(): # loop while anim1 hasn't reach the last step
 
-        #####################
-        ## third animation ##
-        #####################
-        for _ in range(anim3.ANIMATION_LENGTH):
-            show(
-                anim3.animate() + " <=> " + color(
-                    "This is a test",
-                    color_code=BASE_PACK.VALID,
-                    title="TEST"),
-                delete = True,
-                sleep = 0.05
-            )
-        anim3.reset() #reset the animation's step back to zero
+                if anim2.is_last(): anim2.reset() # if anim2 as reach the last step, it reset the animation back to step 0
 
-        ######################
-        ## fourth animation ##
-        ######################
-        for _ in range(anim4.ANIMATION_LENGTH):
-            show(
-                anim4.animate() + " <=> " + color(
-                    "This is a test",
-                    color_code=BASE_PACK.VALID,
-                    title="TEST"),
-                delete = True,
-                sleep = 0.05
-            )
-        anim4.reset() #reset the animation's step back to zero
+                show( # show a text in the console
+                    (
+                        anim2() + anim1() + " <=> " + color( # apply color on a text
+                            "This is a test", # test coloration of a basic text
+                            color_code=BASE_PACK.VALID, # test a default coloring
+                            title="TEST" # test coloration of a title
+                        ) + "\n\n\n\nAnd this is another test\n('Ctrl+C' to stop)" # test to see if line_up(work)
+                    ),
+                    delete=True, # overwrite previous line
+                    sleep=0.1 # sleep 0.1 second before continuing the program
+                )
+
+                Action.line_up(5) # set printing cursor 5 lines up
+
+            anim1.reset() # reset the animation back to step 0
+
+    except KeyboardInterrupt:
+        print("\r\033[93mtest stopped\033[0m")

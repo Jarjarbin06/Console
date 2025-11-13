@@ -38,7 +38,9 @@ class Packed:
             *,
             on : str = "#",
             off : str = "-",
-            border : str = "|"
+            arrow_right : str | None = None,
+            arrow_left : str | None = None,
+            borders : tuple[str, str] = ("|", "|")
         ) -> None:
         """
             Initialise the Packed class
@@ -46,8 +48,13 @@ class Packed:
             Parameters:
                 on (str)(optional): character representing an activated case
                 off (str)(optional): character representing an unactivated case
-                border (str)(optional): character representing a border
+                arrow_right (str | None)(optional): character representing the right of activated cases
+                arrow_left (str | None)(optional): character representing the right of activated cases
+                borders (tuple)(optional): character representing a border
         """
+
+        if not arrow_right: arrow_right = on
+        if not arrow_left: arrow_left = on
 
         self.ERROR = (Color.HIGHLIGHT_DARK_RED, Color.DARK_RED)
         self.WARNING = (Color.HIGHLIGHT_DARK_YELLOW, Color.DARK_YELLOW)
@@ -55,133 +62,133 @@ class Packed:
         self.INFO = (Color.HIGHLIGHT, Color.BASE)
 
         self.SLIDE_R = [
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{on}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{on}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{on}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{on}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{border}"]
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{on}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{on}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{on}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{on}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{borders[1]}"]
 
         self.SLIDE_L = [
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{on}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{on}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{on}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{on}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}"]
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{on}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{on}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{on}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{on}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}"]
 
         self.SLIDER_R = [
-            f"{border}{on}{on}{on}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{on}{on}{on}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{on}{on}{on}{on}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{on}{on}{on}{on}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{on}{on}{on}{on}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{on}{on}{on}{on}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{on}{on}{on}{on}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{on}{on}{on}{on}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{on}{on}{on}{on}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{on}{on}{on}{off}{border}"]
+            f"{borders[0]}{arrow_left}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{arrow_left}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{arrow_left}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{arrow_left}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{arrow_left}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{arrow_right}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{arrow_right}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{arrow_right}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{arrow_right}{off}{borders[1]}"]
 
         self.SLIDER_L = [
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{on}{on}{on}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{on}{on}{on}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{on}{on}{on}{on}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{on}{on}{on}{on}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{on}{on}{on}{on}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{on}{on}{on}{on}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{on}{on}{on}{on}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{on}{on}{on}{on}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{on}{on}{on}{on}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{on}{on}{on}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}"]
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{arrow_right}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{arrow_right}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{arrow_right}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{arrow_right}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{arrow_right}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{arrow_left}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{arrow_left}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{arrow_left}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{arrow_left}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}"]
 
         self.FILL_R = [
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{on}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{on}{on}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{on}{on}{on}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{on}{on}{on}{on}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{on}{on}{on}{on}{on}{on}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{on}{on}{on}{on}{on}{on}{on}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{on}{on}{on}{on}{on}{on}{on}{on}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{on}{on}{on}{on}{on}{on}{on}{on}{on}{off}{off}{off}{off}{off}{border}",
-            f"{border}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{off}{off}{off}{off}{border}",
-            f"{border}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{off}{off}{off}{border}",
-            f"{border}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{off}{off}{border}",
-            f"{border}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{off}{border}",
-            f"{border}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{border}"]
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{on}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{on}{on}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{on}{on}{on}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{on}{on}{on}{on}{on}{on}{arrow_right}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{arrow_right}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{arrow_right}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{arrow_right}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{arrow_right}{borders[1]}"]
 
         self.FILL_L = [
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{on}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{on}{on}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{on}{on}{on}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{on}{on}{on}{on}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{on}{on}{on}{on}{on}{on}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{on}{on}{on}{on}{on}{on}{on}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{on}{on}{on}{on}{on}{on}{on}{on}{border}",
-            f"{border}{off}{off}{off}{off}{off}{on}{on}{on}{on}{on}{on}{on}{on}{on}{border}",
-            f"{border}{off}{off}{off}{off}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{border}",
-            f"{border}{off}{off}{off}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{border}",
-            f"{border}{off}{off}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{border}",
-            f"{border}{off}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{border}",
-            f"{border}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{border}"]
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{on}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{on}{on}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{on}{on}{on}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{arrow_left}{on}{on}{on}{on}{on}{on}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{arrow_left}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{arrow_left}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{arrow_left}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{arrow_left}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{borders[1]}"]
 
         self.EMPTY_R = [
-            f"{border}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{border}",
-            f"{border}{off}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{border}",
-            f"{border}{off}{off}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{border}",
-            f"{border}{off}{off}{off}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{border}",
-            f"{border}{off}{off}{off}{off}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{border}",
-            f"{border}{off}{off}{off}{off}{off}{on}{on}{on}{on}{on}{on}{on}{on}{on}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{on}{on}{on}{on}{on}{on}{on}{on}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{on}{on}{on}{on}{on}{on}{on}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{on}{on}{on}{on}{on}{on}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{on}{on}{on}{on}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{on}{on}{on}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{on}{on}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{on}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{on}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}"]
+            f"{borders[0]}{arrow_left}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{arrow_left}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{arrow_left}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{arrow_left}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{arrow_left}{on}{on}{on}{on}{on}{on}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{on}{on}{on}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{on}{on}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{on}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{on}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{arrow_left}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}"]
 
         self.EMPTY_L = [
-            f"{border}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{border}",
-            f"{border}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{off}{border}",
-            f"{border}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{off}{off}{border}",
-            f"{border}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{off}{off}{off}{border}",
-            f"{border}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{off}{off}{off}{off}{border}",
-            f"{border}{on}{on}{on}{on}{on}{on}{on}{on}{on}{off}{off}{off}{off}{off}{border}",
-            f"{border}{on}{on}{on}{on}{on}{on}{on}{on}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{on}{on}{on}{on}{on}{on}{on}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{on}{on}{on}{on}{on}{on}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{on}{on}{on}{on}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{on}{on}{on}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{on}{on}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{on}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{on}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}",
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}"]
+            f"{borders[0]}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{arrow_right}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{arrow_right}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{arrow_right}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{arrow_right}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{on}{on}{on}{on}{on}{on}{arrow_right}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{on}{on}{on}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{on}{on}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{on}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{on}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{arrow_right}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}",
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}"]
 
         self.FULL = [
-            f"{border}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{border}"]
+            f"{borders[0]}{arrow_left}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{on}{arrow_right}{borders[1]}"]
 
         self.EMPTY = [
-            f"{border}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{border}"]
+            f"{borders[0]}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{off}{borders[1]}"]
