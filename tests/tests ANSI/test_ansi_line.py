@@ -9,32 +9,32 @@ init()
 
 def test_clear_line(
     ) -> None:
-    assert str(Line.clear_line()) == "\033[2K"
+    assert str(Line.clear_line()) == "\x1b[2K"
 
 
 def test_clear_start_line(
     ) -> None:
-    assert str(Line.clear_start_line()) == "\033[1K"
+    assert str(Line.clear_start_line()) == "\x1b[1K"
 
 
 def test_clear_end_line(
     ) -> None:
-    assert str(Line.clear_end_line()) == "\033[K"
+    assert str(Line.clear_end_line()) == "\x1b[K"
 
 
 def test_clear_screen(
     ) -> None:
-    assert str(Line.clear_screen()) == "\033[2J"
+    assert str(Line.clear_screen()) == "\x1b[2J"
 
 
 def test_clear(
     ) -> None:
-    assert str(Line.clear()) == "\033[2J\033[H"
+    assert str(Line.clear()) == "\x1b[2J\x1b[H"
 
 
 def test_clear_previous_line(
     ) -> None:
-    assert str(Line.clear_previous_line()) == "\033[1F\033[2K"
+    assert str(Line.clear_previous_line()) == "\x1b[1F\x1b[2K"
 
 
 quit(delete_log=True)

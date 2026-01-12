@@ -28,7 +28,7 @@ def test_basepack_types(
 def test_basepack_update(
     ) -> None:
     assert isinstance(BasePack.P_ERROR[0], ANSI)
-    assert "\033[41m" == BasePack.P_ERROR[0].sequence
+    assert "\x1b[41m" == BasePack.P_ERROR[0].sequence
 
 
 quit(delete_log=True)

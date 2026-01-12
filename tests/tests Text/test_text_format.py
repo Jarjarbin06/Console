@@ -14,98 +14,98 @@ def test_format_reset():
     text = ANSI("hi")
     s = text.reset()
     assert isinstance(s, ANSI)
-    assert str(s) == "\033[0mhi"
+    assert str(s) == "\x1b[0mhi"
 
 
 def test_format_bold():
     text = Text("hi")
     s = text.bold()
     assert isinstance(s, Text)
-    assert str(s) == "\033[1mhi"
+    assert str(s) == "\x1b[1mhi"
 
 
 def test_format_italic():
     text = ANSI("hi")
     s = text.italic()
     assert isinstance(s, ANSI)
-    assert str(s) == "\033[3mhi"
+    assert str(s) == "\x1b[3mhi"
 
 
 def test_format_underline():
     text = Text("hi")
     s = text.underline()
     assert isinstance(s, Text)
-    assert str(s) == "\033[4mhi"
+    assert str(s) == "\x1b[4mhi"
 
 
 def test_format_hide():
     text = ANSI("hi")
     s = text.hide()
     assert isinstance(s, ANSI)
-    assert str(s) == "\033[8mhi"
+    assert str(s) == "\x1b[8mhi"
 
 
 def test_format_strikethrough():
     text = Text("hi")
     s = text.strikethrough()
     assert isinstance(s, Text)
-    assert str(s) == "\033[9mhi"
+    assert str(s) == "\x1b[9mhi"
 
 
 def test_format_error():
     text = Text("hi")
     s = text.error()
     assert isinstance(s, Text)
-    assert str(s) == "\033[31mhi"
+    assert str(s) == "\x1b[31mhi"
 
 
 def test_format_error_title():
     text = ANSI("hi")
     s = text.error(title=True)
     assert isinstance(s, ANSI)
-    assert str(s) == "\033[41mhi"
+    assert str(s) == "\x1b[41mhi"
 
 
 def test_format_warning():
     text = Text("hi")
     s = text.warning()
     assert isinstance(s, Text)
-    assert str(s) == "\033[33mhi"
+    assert str(s) == "\x1b[33mhi"
 
 
 def test_format_warning_title():
     text = ANSI("hi")
     s = text.warning(title=True)
     assert isinstance(s, ANSI)
-    assert str(s) == "\033[43mhi"
+    assert str(s) == "\x1b[43mhi"
 
 
 def test_format_valid():
     text = Text("hi")
     s = text.valid()
     assert isinstance(s, Text)
-    assert str(s) == "\033[32mhi"
+    assert str(s) == "\x1b[32mhi"
 
 
 def test_format_valid_title():
     text = ANSI("hi")
     s = text.valid(title=True)
     assert isinstance(s, ANSI)
-    assert str(s) == "\033[42mhi"
+    assert str(s) == "\x1b[42mhi"
 
 
 def test_format_info():
     text = Text("hi")
     s = text.info()
     assert isinstance(s, Text)
-    assert str(s) == "\033[0mhi"
+    assert str(s) == "\x1b[0mhi"
 
 
 def test_format_info_title():
     text = ANSI("hi")
     s = text.info(title=True)
     assert isinstance(s, ANSI)
-    assert str(s) == "\033[7mhi"
+    assert str(s) == "\x1b[7mhi"
 
 
 def test_format_apply_to_text():
@@ -146,7 +146,7 @@ def test_format_apply_to_progress_bar_with_spinner():
 
 def test_format_apply_without_sequence_uses_reset():
     result = Format.apply("hello world")
-    assert "\033[0mhello world" in result
+    assert "\x1b[0mhello world" in result
 
 
 def test_format_apply_invalid_target():

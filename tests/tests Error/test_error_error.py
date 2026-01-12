@@ -54,7 +54,7 @@ def test_error_repr(
     ) -> None:
     err = Error("Crash detected", error="FatalError", link=("engine.py", None))
 
-    assert repr(err) == "Error(\"Crash detected\", error=\"FatalError\", link=(\"engine.py\", None))"
+    assert repr(err) == "Error(\'Crash detected\', error=\'FatalError\', link=(\'engine.py\', None))"
 
 
 def test_error_str_with_link_with_line(

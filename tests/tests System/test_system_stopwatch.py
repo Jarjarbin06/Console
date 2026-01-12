@@ -130,7 +130,7 @@ def test_stopwatch_not_equal(
     ) -> None:
     sw = StopWatch(start=True)
 
-    assert repr(sw) != ""
+    assert repr(sw) == "StopWatch(?)"
 
 
 quit(delete_log=True)

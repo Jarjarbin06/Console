@@ -32,7 +32,7 @@ def test_log_repr(
     ) -> None:
     log = Log("tests", "log_test")
     s = repr(log)
-    assert s == "Log(\"tests/\", \"log_test\")"
+    assert s == "Log(\'tests/\', \'log_test\')"
 
 
 def test_log_delete(

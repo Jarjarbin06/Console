@@ -39,7 +39,7 @@ def test_style_string(
 def test_style_repr(
     ) -> None:
     s = Style()
-    assert repr(s) == "Style(\"#\", \"-\", \"<\", \">\", \"|\", \"|\")"
+    assert repr(s) == "Style(\'#\', \'-\', \'<\', \'>\', \'|\', \'|\')"
 
 
 quit(delete_log=True)

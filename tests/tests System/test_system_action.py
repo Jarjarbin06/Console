@@ -22,14 +22,14 @@ def test_action_str():
     def sample(x, y): return x + y
     act = Action("sum", sample, 3, 4)
 
-    assert str(act) == "\"sum\" : sample(*args = [3, 4], **kwargs = {})"
+    assert str(act) == "\'sum\' : sample(*args = [3, 4], **kwargs = {})"
 
 
 def test_action_repr():
     def sample(x, y): return x + y
     act = Action("sum", sample, 3, 4)
 
-    assert repr(act) == "Action(\"sum\", function=sample, args=[3, 4], kwargs={})"
+    assert repr(act) == "Action(\'sum\', function=sample, args=[3, 4], kwargs={})"
 
 
 def test_action_execution(
@@ -96,7 +96,7 @@ def test_actions_str():
     a2 = Action("b", sample, 5, 3)
     actions = Actions([a1, a2])
 
-    assert str(actions) == "1 :\n    name = \"a\"\n    function = sample\n    args = [3, 5]\n    kwargs = {}\n\n2 :\n    name = \"b\"\n    function = sample\n    args = [5, 3]\n    kwargs = {}"
+    assert str(actions) == "1 :\n    name = \'a\'\n    function = sample\n    args = [3, 5]\n    kwargs = {}\n\n2 :\n    name = \'b\'\n    function = sample\n    args = [5, 3]\n    kwargs = {}"
 
 
 def test_actions_repr():
@@ -106,7 +106,7 @@ def test_actions_repr():
 
     actions = a1 + a2
 
-    assert repr(actions) == "Actions([Action(\"sum\", function=sample, args=[3, 4], kwargs={}), Action(\"sum\", function=sample, args=[3, 4], kwargs={})])"
+    assert repr(actions) == "Actions([Action(\'sum\', function=sample, args=[3, 4], kwargs={}), Action(\'sum\', function=sample, args=[3, 4], kwargs={})])"
 
 
 def test_actions_index_access():

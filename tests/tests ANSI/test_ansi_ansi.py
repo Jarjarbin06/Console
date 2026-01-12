@@ -17,49 +17,48 @@ def test_ansi_empty_initialization(
 
 def test_ansi_string_initialization(
     ) -> None:
-    a = ANSI("\033[31m")
-    assert str(a) == "\033[31m"
+    a = ANSI("\x1b[31m")
+    assert str(a) == "\x1b[31m"
 
 
 def test_ansi_list_initialization(
     ) -> None:
-    a = ANSI(["\033[31m", "\033[32m", "\033[33m"])
-    assert str(a) == "\033[31m\033[32m\033[33m"
+    a = ANSI(["\x1b[31m", "\x1b[32m", "\x1b[33m"])
+    assert str(a) == "\x1b[31m\x1b[32m\x1b[33m"
 
 
 def test_ansi_addition(
     ) -> None:
-    a = ANSI("\033[31m")
-    b = ANSI("\033[1m")
+    a = ANSI("\x1b[31m")
+    b = ANSI("\x1b[1m")
     c = a + b
-    assert str(c) == "\033[31m\033[1m"
+    assert str(c) == "\x1b[31m\x1b[1m"
 
 
 def test_ansi_len(
     ) -> None:
-    a = ANSI("\033[31m")
-    assert len(a) == len("\033[31m")
-
-
-def test_ansi_repr(
-    ) -> None:
-    a = ANSI("\033[32m")
-    r = repr(a)
-    assert r == "ANSI(\"\033[32m\")"
+    a = ANSI("\x1b[31m")
+    assert len(a) == len("\x1b[31m")
 
 
 def test_ansi_add_with_str(
     ) -> None:
-    a = ANSI("\033[31m")
+    a = ANSI("\x1b[31m")
     c = a + "hello"
-    assert str(c) == "\033[31mhello"
+    assert str(c) == "\x1b[31mhello"
 
 
 def test_ansi_invalid_add(
     ) -> None:
-    a = ANSI("\033[31m")
+    a = ANSI("\x1b[31m")
     b = a + 123
     assert str(b) == str(a)
+
+
+def test_ansi_repr(
+    ) -> None:
+    a = ANSI("\x1b[32m")
+    assert repr(a) == "ANSI(\'\\x1b[32m\')"
 
 
 quit(delete_log=True)

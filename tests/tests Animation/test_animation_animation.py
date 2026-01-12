@@ -15,14 +15,14 @@ def test_animation_initialization_with_list(
     anim = Animation(frames)
     assert anim.animation == frames
     assert anim.step == 0
-    assert anim.render().replace("\033[0m", "") == "A"
+    assert anim.render().replace("\x1b[0m", "") == "A"
 
 
 def test_animation_initialization_with_string(
     ) -> None:
     anim = Animation("X\\Y\\Z")
     assert anim.animation == ["X", "Y", "Z"]
-    assert anim.render().replace("\033[0m", "") == "X"
+    assert anim.render().replace("\x1b[0m", "") == "X"
 
 
 def test_animation_add(
@@ -44,21 +44,21 @@ def test_animation_add_text(
 def test_animation_update_basic(
     ) -> None:
     anim = Animation(["A", "B", "C"])
-    assert anim.render().replace("\033[0m", "") == "A"
+    assert anim.render().replace("\x1b[0m", "") == "A"
     anim.update()
-    assert anim.render().replace("\033[0m", "") == "B"
+    assert anim.render().replace("\x1b[0m", "") == "B"
     anim.update()
-    assert anim.render().replace("\033[0m", "") == "C"
+    assert anim.render().replace("\x1b[0m", "") == "C"
 
 
 def test_animation_update_call(
     ) -> None:
     anim = Animation(["A", "B", "C"])
-    assert anim.render().replace("\033[0m", "") == "A"
+    assert anim.render().replace("\x1b[0m", "") == "A"
     anim()
-    assert anim.render().replace("\033[0m", "") == "B"
+    assert anim.render().replace("\x1b[0m", "") == "B"
     anim()
-    assert anim.render().replace("\033[0m", "") == "C"
+    assert anim.render().replace("\x1b[0m", "") == "C"
 
 
 def test_animation_update_auto_reset_enabled(
@@ -66,7 +66,7 @@ def test_animation_update_auto_reset_enabled(
     anim = Animation(["A", "B"])
     anim.update()  # index 1
     anim.update()  # auto-reset to 0
-    assert anim.render().replace("\033[0m", "") == "A"
+    assert anim.render().replace("\x1b[0m", "") == "A"
 
 
 def test_animation_update_auto_reset_disabled(
@@ -75,13 +75,13 @@ def test_animation_update_auto_reset_disabled(
     anim.update(auto_reset=False)
     anim.update(auto_reset=False)
     # Stays on last frame
-    assert anim.render().replace("\033[0m", "") == "B"
+    assert anim.render().replace("\x1b[0m", "") == "B"
 
 
 def test_animation_render(
     ) -> None:
     anim = Animation(["A"])
-    output = anim.render().replace("\033[0m", "")
+    output = anim.render().replace("\x1b[0m", "")
     assert isinstance(output, str)
     assert output == "A"
 
@@ -89,7 +89,7 @@ def test_animation_render(
 def test_animation_render_delete_flag(
     ) -> None:
     anim = Animation(["A"])
-    output = anim.render(delete=True).replace("\033[0m", "")
+    output = anim.render(delete=True).replace("\x1b[0m", "")
     assert isinstance(output, str)
     assert output == "A\x1b[1A\x1b[0G"
 
@@ -97,15 +97,15 @@ def test_animation_render_delete_flag(
 def test_animation_render_color_int(
     ) -> None:
     anim = Animation(["A"])
-    output = anim.render(color=1).replace("\033[0m", "")
+    output = anim.render(color=1).replace("\x1b[0m", "")
     assert isinstance(output, str)
-    assert output == "\033[1mA"
+    assert output == "\x1b[1mA"
 
 
 def test_animation_repr(
     ) -> None:
     anim = Animation(["A"])
-    assert repr(anim) == "Animation(['A'])"
+    assert repr(anim) == "Animation([\'A\'])"
 
 
 def test_animation_length(
