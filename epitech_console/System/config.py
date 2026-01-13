@@ -47,12 +47,18 @@ class Config:
         self.file_name : str | None = file_name
 
         if system() == "Windows":
-            self.path = self.path.replace("/", "\\")
-            self.file_name = self.file_name.replace("/", "\\")
 
-        if system() == "Linux":
-            self.path = self.path.replace("\\", "/")
-            self.file_name = self.file_name.replace("/", "\\")
+            ## cannot be tested with pytest ##
+
+            self.path = self.path.replace("/", "\\") # pragma: no cover
+            self.file_name = self.file_name.replace("/", "\\") # pragma: no cover
+
+        elif system() == "Linux":
+
+            ## cannot be tested with pytest ##
+
+            self.path = self.path.replace("\\", "/") # pragma: no cover
+            self.file_name = self.file_name.replace("/", "\\") # pragma: no cover
 
         if Config.exist(self.path):
             self.config.read(self.path + self.file_name)

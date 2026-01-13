@@ -84,7 +84,7 @@ def init(
         Animation.BasePack.update()
         ANSI.BasePack.update()
         if System.Setting.S_SETTING_LOG_MODE:
-            System.Setting.S_LOG_FILE.log("INFO", "module", "epitech_console initialized")
+            System.Setting.S_LOG_FILE.log("INFO", "module", "epitech_console initialized") # pragma: no cover
 
     ## cannot be tested with pytest ##
 
@@ -94,7 +94,7 @@ def init(
         exit(84)
 
     except Exception as error: # pragma: no cover
-        fatal_error(error)  # pragma: no cover
+        fatal_error(error) # pragma: no cover
 
 
 def quit(
@@ -111,17 +111,18 @@ def quit(
     """
 
     if System.Setting.S_SETTING_LOG_MODE:
-        System.Setting.S_LOG_FILE.log("INFO", "module", "epitech_console uninitialized")
-        System.Setting.S_LOG_FILE.close()
-        System.Setting.S_CONFIG_FILE.set("SETTING", "opened-log", "null")
 
         ## cannot be tested with pytest ##
 
-        if show:
+        System.Setting.S_LOG_FILE.log("INFO", "module", "epitech_console uninitialized") # pragma: no cover
+        System.Setting.S_LOG_FILE.close() # pragma: no cover
+        System.Setting.S_CONFIG_FILE.set("SETTING", "opened-log", "null") # pragma: no cover
+
+        if show: # pragma: no cover
             System.Console.print(str(System.Setting.S_LOG_FILE)) # pragma: no cover
 
-        if delete_log:
-            System.Setting.S_LOG_FILE.close(delete=True)
+        if delete_log: # pragma: no cover
+            System.Setting.S_LOG_FILE.close(delete=True) # pragma: no cover
 
 
 __all__ : list[str] = [

@@ -46,6 +46,21 @@ def test_console_print_sleep(
     assert 0.1 < (end_time - start_time) < 0.11
 
 
+def test_console_size(
+    ) -> None:
+    assert Console.get_size() == (0, 0)
+
+
+def test_console_get_position(
+    ) -> None:
+    assert Console.get_cursor_position() == (0, 0)
+
+
+def test_console_get_key(
+    ) -> None:
+    assert Console.get_key_press() == ""
+
+
 def test_console_len(
     ) -> None:
     assert len(Console) == 100

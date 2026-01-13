@@ -14,7 +14,7 @@ def test_color_str(
     assert str(seq) == "hey"
 
 
-def test_color_ANSI(
+def test_color_ansi(
     ) -> None:
     seq = Color(ANSI("hey"))
     assert str(seq) == "hey"

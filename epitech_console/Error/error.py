@@ -59,16 +59,18 @@ class Error(Exception):
 
         if Setting.S_SETTING_LOG_MODE:
 
-            Setting.S_LOG_FILE.log("ERROR", "error", f"\"{self.error}\": {self.message}")
+            ## cannot be tested with pytest ##
 
-            if self.link_data:
-                if self.link_data[1] is None:
-                    Setting.S_LOG_FILE.comment(f"A file as been linked to the previous error:")
-                    Setting.S_LOG_FILE.comment(f"\"{self.link_data[0]}\"")
+            Setting.S_LOG_FILE.log("ERROR", "error", f"\"{self.error}\": {self.message}") # pragma: no cover
 
-                else:
-                    Setting.S_LOG_FILE.comment(f"A file and line number as been linked to the previous error:")
-                    Setting.S_LOG_FILE.comment(f"\"{self.link_data[0]}\" line {self.link_data[1]}")
+            if self.link_data: # pragma: no cover
+                if self.link_data[1] is None: # pragma: no cover
+                    Setting.S_LOG_FILE.comment(f"A file as been linked to the previous error:") # pragma: no cover
+                    Setting.S_LOG_FILE.comment(f"\"{self.link_data[0]}\"") # pragma: no cover
+
+                else: # pragma: no cover
+                    Setting.S_LOG_FILE.comment(f"A file and line number as been linked to the previous error:") # pragma: no cover
+                    Setting.S_LOG_FILE.comment(f"\"{self.link_data[0]}\" line {self.link_data[1]}") # pragma: no cover
 
 
     def create_link(
@@ -263,7 +265,10 @@ class ErrorLog(Error):
         """
             Cannot log this error into a log file.
         """
-        pass
+
+        ## cannot be tested with pytest ##
+
+        pass # pragma: no cover
 
 
 class ErrorConfig(Error):

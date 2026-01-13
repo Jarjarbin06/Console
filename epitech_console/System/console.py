@@ -166,24 +166,29 @@ class Console(metaclass=ConsoleMeta):
                 str: Key pressed.
         """
 
+        ## cannot be tested with pytest ##
+
         import sys
         import tty
         import termios
 
-        fd = sys.stdin.fileno()
-        old_settings = termios.tcgetattr(fd)
+        if not sys.stdin.isatty():
+            return ""
 
-        try:
-            tty.setraw(fd)
-            ch1 = sys.stdin.read(1)
+        fd = sys.stdin.fileno() # pragma: no cover
+        old_settings = termios.tcgetattr(fd) # pragma: no cover
 
-            if ch1 == '\x1b':  # ESC
-                ch2 = sys.stdin.read(1)
-                ch3 = sys.stdin.read(1)
-                return ch1 + ch2 + ch3
-            return ch1
-        finally:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+        try: # pragma: no cover
+            tty.setraw(fd) # pragma: no cover
+            ch1 = sys.stdin.read(1) # pragma: no cover
+
+            if ch1 == '\x1b':  # ESC # pragma: no cover
+                ch2 = sys.stdin.read(1) # pragma: no cover
+                ch3 = sys.stdin.read(1) # pragma: no cover
+                return ch1 + ch2 + ch3 # pragma: no cover
+            return ch1 # pragma: no cover
+        finally: # pragma: no cover
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings) # pragma: no cover
 
 
     @staticmethod
@@ -197,41 +202,67 @@ class Console(metaclass=ConsoleMeta):
                 tuple: cursor position in console.
         """
 
+        ## cannot be tested with pytest ##
+
         import sys
         import tty
         import termios
         import re
 
         if not sys.stdin.isatty():
-            raise RuntimeError("stdin is not a TTY")
+            return 0, 0
 
-        fd = sys.stdin.fileno()
-        old = termios.tcgetattr(fd)
+        fd = sys.stdin.fileno() # pragma: no cover
+        old = termios.tcgetattr(fd) # pragma: no cover
 
-        try:
-            tty.setraw(fd)
+        try: # pragma: no cover
+            tty.setraw(fd) # pragma: no cover
 
             # Request cursor position
-            sys.stdout.write("\x1b[6n")
-            sys.stdout.flush()
+            sys.stdout.write("\x1b[6n") # pragma: no cover
+            sys.stdout.flush() # pragma: no cover
 
             # Read response: ESC [ row ; col R
-            response = ""
-            while True:
-                ch = sys.stdin.read(1)
-                response += ch
-                if ch == "R":
-                    break
+            response = "" # pragma: no cover
+            while True: # pragma: no cover
+                ch = sys.stdin.read(1) # pragma: no cover
+                response += ch # pragma: no cover
+                if ch == "R": # pragma: no cover
+                    break # pragma: no cover
 
-        finally:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old)
+        finally: # pragma: no cover
+            termios.tcsetattr(fd, termios.TCSADRAIN, old) # pragma: no cover
 
-        match = re.match(r"\x1b\[(\d+);(\d+)R", response)
-        if not match:
-            raise RuntimeError(f"Invalid response: {repr(response)}")
+        match = re.match(r"\x1b\[(\d+);(\d+)R", response) # pragma: no cover
+        if not match: # pragma: no cover
+            raise RuntimeError(f"Invalid response: {repr(response)}") # pragma: no cover
 
-        row, col = map(int, match.groups())
-        return row, col
+        row, col = map(int, match.groups()) # pragma: no cover
+        return row, col # pragma: no cover
+
+
+    @staticmethod
+    def get_size(
+        ) -> tuple[int, int]:
+        """
+            get the size of the current terminal
+
+            Returns:
+                tuple: size (width, height) of the terminal
+        """
+
+        import sys
+        from os import get_terminal_size
+
+        if not sys.stdin.isatty():
+            return 0, 0
+
+        size : tuple[int, int] # pragma: no cover
+
+        t_size = get_terminal_size() # pragma: no cover
+        size = (t_size.columns, t_size.lines) # pragma: no cover
+
+        return size # pragma: no cover
 
 
     @staticmethod
@@ -248,30 +279,6 @@ class Console(metaclass=ConsoleMeta):
         ## cannot be tested with pytest ##
 
         stream.flush() # pragma: no cover
-
-
-    @staticmethod
-    def get_size(
-        ) -> tuple[int, int]:
-        """
-            get the size of the current terminal
-
-            Returns:
-                tuple: size (width, height) of the terminal
-        """
-
-        from os import get_terminal_size
-
-        t_size = get_terminal_size()
-        size : tuple[int, int]
-
-        try :
-            size = (t_size.columns, t_size.lines)
-
-        except OSError:
-            size = (100, 10)
-
-        return size
 
 
 if Setting.S_SETTING_LOG_MODE: Setting.S_LOG_FILE.log("INFO", "init", "System.Console: created")

@@ -77,13 +77,22 @@ class Setting:
         Setting.S_OS = system()
 
         if Setting.S_OS == "Windows":
-            Setting.S_PACKAGE_PATH = __file__.removesuffix("System\\setting.py")
+
+            ## cannot be tested with pytest ##
+
+            Setting.S_PACKAGE_PATH = __file__.removesuffix("System\\setting.py") # pragma: no cover
 
         elif Setting.S_OS == "Linux":
-            Setting.S_PACKAGE_PATH = __file__.removesuffix("System/setting.py")
+
+            ## cannot be tested with pytest ##
+
+            Setting.S_PACKAGE_PATH = __file__.removesuffix("System/setting.py") # pragma: no cover
 
         else:
-            Setting.S_PACKAGE_PATH = __file__.removesuffix("System/setting.py").removesuffix("System\\setting.py")
+
+            ## cannot be tested with pytest ##
+
+            Setting.S_PACKAGE_PATH = __file__.removesuffix("System/setting.py").removesuffix("System\\setting.py") # pragma: no cover
 
         Setting.S_CONFIG_FILE = Config(Setting.S_PACKAGE_PATH)
 
@@ -100,16 +109,19 @@ class Setting:
         Setting.S_SETTING_LOG_MODE = Setting.S_CONFIG_FILE.get_bool("SETTING", "log")
 
         if Setting.S_SETTING_LOG_MODE:
-            Setting.S_SETTING_OPENED_LOG = Setting.S_CONFIG_FILE.get("SETTING", "opened-log")
 
-            if Setting.S_SETTING_OPENED_LOG == "null":
-                Setting.S_LOG_FILE = Log(Setting.S_PACKAGE_PATH + "log")
-                Setting.S_CONFIG_FILE.set("SETTING", "opened-log", Setting.S_LOG_FILE.log_file_name)
-                Setting.S_SETTING_OPENED_LOG = Setting.S_CONFIG_FILE.get("SETTING", "opened-log")
+            ## cannot be tested with pytest ##
 
-            else:
-                Setting.S_LOG_FILE = Log(Setting.S_PACKAGE_PATH + ("log\\" if system() == "Windows" else "log/"), file_name=Setting.S_SETTING_OPENED_LOG)
+            Setting.S_SETTING_OPENED_LOG = Setting.S_CONFIG_FILE.get("SETTING", "opened-log") # pragma: no cover
 
-            if Setting.S_LOG_FILE is None:
-                print('\x1b[101 \x1b[0m \x1b[91mAn error occured when updating setting S_LOG_FILE (currently equal \"None\"\x1b[0m')
-            Setting.S_LOG_FILE.log("INFO", "function", "System.Setting.update(): setting updated")
+            if Setting.S_SETTING_OPENED_LOG == "null": # pragma: no cover
+                Setting.S_LOG_FILE = Log(Setting.S_PACKAGE_PATH + "log") # pragma: no cover
+                Setting.S_CONFIG_FILE.set("SETTING", "opened-log", Setting.S_LOG_FILE.log_file_name) # pragma: no cover
+                Setting.S_SETTING_OPENED_LOG = Setting.S_CONFIG_FILE.get("SETTING", "opened-log") # pragma: no cover
+
+            else: # pragma: no cover
+                Setting.S_LOG_FILE = Log(Setting.S_PACKAGE_PATH + ("log\\" if system() == "Windows" else "log/"), file_name=Setting.S_SETTING_OPENED_LOG) # pragma: no cover
+
+            if Setting.S_LOG_FILE is None: # pragma: no cover
+                print('\x1b[101 \x1b[0m \x1b[91mAn error occured when updating setting S_LOG_FILE (currently equal \"None\"\x1b[0m') # pragma: no cover
+            Setting.S_LOG_FILE.log("INFO", "function", "System.Setting.update(): setting updated") # pragma: no cover

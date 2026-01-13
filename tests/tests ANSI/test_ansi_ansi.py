@@ -35,6 +35,23 @@ def test_ansi_addition(
     assert str(c) == "\x1b[31m\x1b[1m"
 
 
+def test_ansi_add(
+    ) -> None:
+    t1 = ANSI("hello")
+    t2 = ANSI("world")
+    t3 = t1 + t2
+    assert len(t3) == 10
+    assert str(t3) == "helloworld"
+
+
+def test_ansi_mul(
+    ) -> None:
+    t1 = ANSI("0")
+    t2 = t1 * 10
+    assert len(t2) == 10
+    assert str(t2) == "0000000000"
+
+
 def test_ansi_len(
     ) -> None:
     a = ANSI("\x1b[31m")

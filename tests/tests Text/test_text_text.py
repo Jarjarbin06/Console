@@ -15,7 +15,7 @@ def test_text_string_initialization(
     assert str(t) == "hello"
 
 
-def test_text_ANSI_initialization(
+def test_text_ansi_initialization(
     ) -> None:
     t = Text(ANSI("hello"))
     assert str(t) == "hello"
@@ -31,6 +31,23 @@ def test_text_empty_initialization(
     ) -> None:
     t = Text()
     assert str(t) == ""
+
+
+def test_text_add(
+    ) -> None:
+    t1 = Text("hello")
+    t2 = Text("world")
+    t3 = t1 + t2
+    assert len(t3) == 10
+    assert str(t3) == "helloworld"
+
+
+def test_text_mul(
+    ) -> None:
+    t1 = Text("0")
+    t2 = t1 * 10
+    assert len(t2) == 10
+    assert str(t2) == "0000000000"
 
 
 def test_text_length(
