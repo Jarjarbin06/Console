@@ -478,6 +478,7 @@ REPO/
 
 ## Release-Notes
 * #### v0.1.9:
+	*   **[ADD]** new `pytest` tests (92% coverage)
 	*   **[UPDATE]** `Console` upgrade and new function
 	*   **[ADD]** `TUI` (Terminal User Interface)
 	*   **[FIX]** random fixes
