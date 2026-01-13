@@ -2,8 +2,8 @@
 **PACKAGE** = *2026-01-13 17:05 UTC+1(Paris)* ; 
 **README** = *2026-01-13 17:05 UTC+1(Paris)*</small>\
 \
-<img src="https://github.com/Jarjarbin06/epitech_console/blob/main/source/epitech_logo.png?raw=true" alt="Epite6ch logo" width="49%" style="display:inline-block; margin-right:1%;">
-<img src="https://github.com/Jarjarbin06/epitech_console/blob/main/source/epitech_console_logo.png?raw=true" alt="Epitech Console logo" width="49%" style="display:inline-block;">
+<img src="https://github.com/Jarjarbin06/epitech_console/blob/main/source/epitech_logo.png?raw=true" alt="error loading Epitech Logo" width="49%" style="display:inline-block; margin-right:1%;">
+<img src="https://github.com/Jarjarbin06/epitech_console/blob/main/source/epitech_console_logo.png?raw=true" alt="error loading Epitech Console Logo" width="49%" style="display:inline-block;">
 
 # **epitech_console** v0.1.8.3
 <details>
