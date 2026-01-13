@@ -68,6 +68,9 @@ class TUI:
 
         from epitech_console.ANSI.ansi import ANSI
 
+        if height == 0 or width == 0:
+            return
+
         self.size : int = size
         self._screen : list[list[dict]] = []
         self.separator : str = separator

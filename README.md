@@ -8,7 +8,7 @@
 # **epitech_console** v0.1.8.3
 <details>
 <summary>Latest development version</summary>
-🟠 UNDER DEVELOPMENT 🟠 v0.1.9 🟠
+🟠 UNDER DEVELOPMENT 🟠 v0.2.0 🟠
 </details>
 <details>
 <summary>Latest release</summary>
@@ -477,7 +477,7 @@ REPO/
     *   `@file_link(path: str, line: int | None = None)`: Creates a link to a file and line number.
 
 ## Release-Notes
-* #### v0.1.9:
+* #### v0.2.0:
 	*   **[ADD]** new `pytest` tests (92% coverage)
 	*   **[UPDATE]** `Console` upgrade and new function
 	*   **[ADD]** `TUI` (Terminal User Interface)

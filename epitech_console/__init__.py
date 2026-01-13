@@ -33,7 +33,7 @@ def fatal_error(
 
 try:
     from epitech_console import Animation, ANSI, Error, System, Text
-    from epitech_console.TUI.TUI import TUI
+    from epitech_console.TUI import TUI
 
 except Exception as error:  # pragma: no cover
     fatal_error(error)  # pragma: no cover
@@ -131,6 +131,7 @@ __all__ : list[str] = [
     'Error',
     'System',
     'Text',
+    'TUI',
     'init',
     'quit',
     '__version__',
