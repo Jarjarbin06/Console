@@ -44,14 +44,12 @@ help:
 	@echo -e "\tmake uninstall\t\tUninstall the package"
 	@echo -e "\tmake reinstall\t\tReinstall the package"
 	@echo ""
-	@echo -e "\tmake test\t\tRun test-package script"
-	@echo -e "\tmake check\t\tRun check-package script"
+	@echo -e "\tmake test\t\Test the package (pytest)"
+	@echo -e "\tmake check\t\tShow package info (PyPI)"
 	@echo ""
-	@echo -e "\tmake demo\t\tRun full demo"
+	@echo -e "\tmake demo\t\tRun the demo"
 	@echo ""
 	@echo -e "\tmake clean\t\tClean cache and build files"
-	@echo -e "\tmake venv\t\tCreate a virtual environment"
-	@echo -e "\tmake venv-install\tInstall package inside venv"
 	@echo -e "\tmake info\t\tShow package info"
 	@echo ""
 
@@ -97,20 +95,8 @@ demo:
 	@./$(SCRIPT_DIR)/full_demo && echo -e "$(GREEN) [DEMO] Full demo ran$(NC)" || echo -e "$(RED) [DEMO] Full demo ran with error$(NC)"
 
 # ------------------------------------------------------------
-# DEVELOPMENT UTILITIES
+# INFORMATION
 # ------------------------------------------------------------
-
-venv:
-	@echo -e "$(YELLOW) [VENV] Creating virtual environment$(NC)"
-	@$(PYTHON) -m venv $(VENV_DIR)
-	@echo "Activate it with:"
-	@echo "  source $(VENV_DIR)/bin/activate"
-	@echo -e "$(GREEN) [VENV] Virtual environment created$(NC)"
-
-venv-install: venv
-	@echo -e "$(YELLOW) [VENV] Installing package in virtualenv$(NC)"
-	@source $(VENV_DIR)/bin/activate && ./$(SCRIPT_DIR)/install-package
-	@echo -e "$(GREEN) [VENV] Package installed in virtualenv$(NC)"
 
 info:
 	@echo -e "$(YELLOW) [INFO] Getting package informations$(NC)"
@@ -135,5 +121,5 @@ clean:
 	install uninstall reinstall \
 	test check \
 	demo \
-	venv venv-install \
-	info clean
+	info \
+	clean

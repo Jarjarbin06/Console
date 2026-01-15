@@ -2,4 +2,4 @@
 
 pip show epitech_console || true
 echo ""
-python -c "import epitech_console" || true
+python -c "import epitech_console as EC;EC.init();EC.quit(delete_log=True)" || true
