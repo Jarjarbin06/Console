@@ -26,6 +26,15 @@ class TUI:
         TUI class.
 
         TUI tool.
+
+        Attributes:
+            K_UP (str): Up key.
+            K_DOWN (str): Down key.
+            K_LEFT (str): Left key.
+            K_RIGHT (str): Right key.
+            K_ENTER (str): Enter key.
+            K_SPACE (str): Space key.
+            K_Q (str): Q key.
     """
 
 
@@ -34,6 +43,15 @@ class TUI:
     from epitech_console.System.console import Console
     from epitech_console.ANSI.color import Color
     from epitech_console.ANSI.ansi import ANSI
+
+
+    K_UP : str = "\x1b[A"
+    K_DOWN : str = "\x1b[B"
+    K_LEFT : str = "\x1b[D"
+    K_RIGHT : str = "\x1b[C"
+    K_ENTER : str = "\r"
+    K_SPACE : str = " "
+    K_Q : str = "q"
 
 
     def __init__(
@@ -231,17 +249,17 @@ class TUI:
             Console.print(Cursor.hide() + Cursor.top() + str(self), end = "") # pragma: no cover
             pressed_key = Console.get_key_press() # pragma: no cover
 
-            if pressed_key == "q": # pragma: no cover
-                self._running = False # pragma: no cover
-            elif pressed_key in ["\x1b[A"]: # pragma: no cover
-                self.selected = (self.selected[0] - 1, self.selected[1]) # pragma: no cover
-            elif pressed_key in ["\x1b[B"]: # pragma: no cover
-                self.selected = (self.selected[0] + 1, self.selected[1]) # pragma: no cover
-            elif pressed_key in ["\x1b[C"]: # pragma: no cover
-                self.selected = (self.selected[0], self.selected[1] + 1) # pragma: no cover
-            elif pressed_key in ["\x1b[D"]: # pragma: no cover
-                self.selected = (self.selected[0], self.selected[1] - 1) # pragma: no cover
-            elif pressed_key in ["\r", " "]: # pragma: no cover
+            if pressed_key == TUI.K_Q: # pragma: no cover
+                self.exit() # pragma: no cover
+            elif pressed_key in [TUI.K_UP]: # pragma: no cover
+                self.move(self.selected[0], self.selected[1] + 1) # pragma: no cover
+            elif pressed_key in [TUI.K_DOWN]: # pragma: no cover
+                self.move(self.selected[0] + 2, self.selected[1] + 1) # pragma: no cover
+            elif pressed_key in [TUI.K_LEFT]: # pragma: no cover
+                self.move(self.selected[0] + 1, self.selected[1]) # pragma: no cover
+            elif pressed_key in [TUI.K_RIGHT]: # pragma: no cover
+                self.move(self.selected[0] + 1, self.selected[1] + 2) # pragma: no cover
+            elif pressed_key in [TUI.K_ENTER, TUI.K_SPACE]: # pragma: no cover
                 self._screen[self.selected[0]][self.selected[1]]["action"]() # pragma: no cover
 
             if self.selected[0] < self.limit[0]: # pragma: no cover
