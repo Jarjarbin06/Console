@@ -3,7 +3,7 @@ import time
 
 
 from epitech_console.System import StopWatch
-from epitech_console import init, quit
+from epitech_console import (init, quit)
 
 
 init()

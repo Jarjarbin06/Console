@@ -3,7 +3,7 @@ import pytest
 
 from epitech_console.Animation import BasePack, Style
 from epitech_console.Error import ErrorType
-from epitech_console import init, quit
+from epitech_console import (init, quit)
 
 
 init()

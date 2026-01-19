@@ -2,7 +2,7 @@ import pytest
 
 
 from epitech_console.System import Config
-from epitech_console import init, quit
+from epitech_console import (init, quit)
 
 
 init()

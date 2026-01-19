@@ -4,7 +4,7 @@ from time import time
 
 
 from epitech_console.System import Console
-from epitech_console import init, quit
+from epitech_console import (init, quit)
 
 
 init()

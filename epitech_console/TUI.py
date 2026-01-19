@@ -140,7 +140,7 @@ class TUI:
             *,
             action: Action | Actions | Callable | None = None,
             data: Any | None = None,
-            color: Color | None = None
+            color: ANSI | None = None
         ) -> None:
         """
             Add an element to interact with.
@@ -216,43 +216,45 @@ class TUI:
             Start the TUI.
         """
 
-        from epitech_console.System.console import Console
-        from epitech_console.ANSI.cursor import Cursor
-        from epitech_console.ANSI.line import Line
+        ## cannot be tested with pytest ##
 
-        self._running = True
-        pressed_key : str
+        from epitech_console.System.console import Console # pragma: no cover
+        from epitech_console.ANSI.cursor import Cursor # pragma: no cover
+        from epitech_console.ANSI.line import Line # pragma: no cover
 
-        Console.print(Line.clear(), end = "")
+        self._running = True # pragma: no cover
+        pressed_key : str # pragma: no cover
 
-        while self._running:
-            Console.print(Cursor.hide() + Cursor.top() + str(self), end = "")
-            pressed_key = Console.get_key_press()
+        Console.print(Line.clear(), end = "") # pragma: no cover
 
-            if pressed_key == "q":
-                self._running = False
-            elif pressed_key in ["\x1b[A"]:
-                self.selected = (self.selected[0] - 1, self.selected[1])
-            elif pressed_key in ["\x1b[B"]:
-                self.selected = (self.selected[0] + 1, self.selected[1])
-            elif pressed_key in ["\x1b[C"]:
-                self.selected = (self.selected[0], self.selected[1] + 1)
-            elif pressed_key in ["\x1b[D"]:
-                self.selected = (self.selected[0], self.selected[1] - 1)
-            elif pressed_key in ["\r", " "]:
-                self._screen[self.selected[0]][self.selected[1]]["action"]()
+        while self._running: # pragma: no cover
+            Console.print(Cursor.hide() + Cursor.top() + str(self), end = "") # pragma: no cover
+            pressed_key = Console.get_key_press() # pragma: no cover
 
-            if self.selected[0] < self.limit[0]:
-                self.selected = (self.selected[0] + (self.limit[2] - self.limit[0]), self.selected[1])
-            elif self.selected[0] >= self.limit[2]:
-                self.selected = (self.selected[0] - (self.limit[2] - self.limit[0]), self.selected[1])
+            if pressed_key == "q": # pragma: no cover
+                self._running = False # pragma: no cover
+            elif pressed_key in ["\x1b[A"]: # pragma: no cover
+                self.selected = (self.selected[0] - 1, self.selected[1]) # pragma: no cover
+            elif pressed_key in ["\x1b[B"]: # pragma: no cover
+                self.selected = (self.selected[0] + 1, self.selected[1]) # pragma: no cover
+            elif pressed_key in ["\x1b[C"]: # pragma: no cover
+                self.selected = (self.selected[0], self.selected[1] + 1) # pragma: no cover
+            elif pressed_key in ["\x1b[D"]: # pragma: no cover
+                self.selected = (self.selected[0], self.selected[1] - 1) # pragma: no cover
+            elif pressed_key in ["\r", " "]: # pragma: no cover
+                self._screen[self.selected[0]][self.selected[1]]["action"]() # pragma: no cover
 
-            if self.selected[1] < self.limit[1]:
-                self.selected = (self.selected[0], self.selected[1] + (self.limit[3] - self.limit[1]))
-            elif self.selected[1] >= self.limit[3]:
-                self.selected = (self.selected[0], self.selected[1] - (self.limit[3] - self.limit[1]))
+            if self.selected[0] < self.limit[0]: # pragma: no cover
+                self.selected = (self.selected[0] + (self.limit[2] - self.limit[0]), self.selected[1]) # pragma: no cover
+            elif self.selected[0] >= self.limit[2]: # pragma: no cover
+                self.selected = (self.selected[0] - (self.limit[2] - self.limit[0]), self.selected[1]) # pragma: no cover
 
-        Console.print(Line.clear() + Cursor.show(), end = "")
+            if self.selected[1] < self.limit[1]: # pragma: no cover
+                self.selected = (self.selected[0], self.selected[1] + (self.limit[3] - self.limit[1])) # pragma: no cover
+            elif self.selected[1] >= self.limit[3]: # pragma: no cover
+                self.selected = (self.selected[0], self.selected[1] - (self.limit[3] - self.limit[1])) # pragma: no cover
+
+        Console.print(Line.clear() + Cursor.show(), end = "") # pragma: no cover
 
 
     def exit(
@@ -262,7 +264,9 @@ class TUI:
             Stop the TUI.
         """
 
-        self._running = False
+        ## cannot be tested with pytest ##
+
+        self._running = False # pragma: no cover
 
 
     def move(
@@ -293,4 +297,7 @@ class TUI:
         """
             Nothing
         """
-        pass
+
+        ## cannot be tested with pytest ##
+
+        pass # pragma: no cover

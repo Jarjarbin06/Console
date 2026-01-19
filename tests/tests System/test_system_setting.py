@@ -3,7 +3,7 @@ from types import NoneType
 
 
 from epitech_console.System import Setting, Log, Config
-from epitech_console import init, quit
+from epitech_console import (init, quit)
 
 
 init()

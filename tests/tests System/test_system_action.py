@@ -1,7 +1,7 @@
 import pytest
 
 from epitech_console.System import Action, Actions
-from epitech_console import init, quit
+from epitech_console import (init, quit)
 
 
 init()

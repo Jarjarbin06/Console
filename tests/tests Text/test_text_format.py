@@ -4,7 +4,7 @@ import pytest
 from epitech_console.Text import Text, Format
 from epitech_console.ANSI import ANSI
 from epitech_console.Animation import Animation, ProgressBar, Spinner
-from epitech_console import init, quit
+from epitech_console import (init, quit)
 
 
 init()
